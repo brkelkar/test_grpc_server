@@ -16,12 +16,10 @@ func main() {
 	s := auth.Server{}
 
 	grpcServer := grpc.NewServer()
+	auth.RegisterAuthValidationServiceServer(grpcServer, &s)
 
 	if err := grpcServer.Serve(lis); err != nil {
 		log.Fatalf("failed to serve: %s", err)
 	}
-	auth.RegisterAuthValidationServiceServer(grpcServer, &s)
-	if err := grpcServer.Serve(lis); err != nil {
-		log.Fatalf("failed to serve: %s", err)
-	}
+
 }
